@@ -189,3 +189,58 @@ export const fetchProperties = async ({
   });
   return properties;
 };
+
+export const fetchFavouriteId = async ({
+  propertyId,
+}: {
+  propertyId: string;
+}) => {
+  const user = await getAuthUser();
+  const favourite = await db.favourite.findFirst({
+    where: {
+      propertyId,
+      profileId: user.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return favourite?.id || null;
+};
+
+export const toggleFavouriteAction = async (prevState: {
+  propertyId: string;
+  favouriteId: string | null;
+  pathname: string;
+}) => {
+  const user = await getAuthUser();
+  const { propertyId, favouriteId, pathname } = prevState;
+
+  try {
+    if (favouriteId) {
+      await db.favourite.delete({
+        where: {
+          id: favouriteId,
+        },
+      });
+    } else {
+      await db.favourite.create({
+        data: {
+          propertyId,
+          profileId: user.id,
+        },
+      });
+    }
+
+    revalidatePath(pathname);
+
+    return {
+      message: favouriteId ? "Removed from favourites" : "Added to favourites",
+    };
+  } catch (error) {
+    return renderError(error);
+  }
+
+  return { message: "toggle favourite" };
+};
