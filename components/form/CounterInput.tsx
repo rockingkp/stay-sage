@@ -29,7 +29,6 @@ const CounterInput = ({
   };
   return (
     <Card className="mb-4">
-      {/* input */}
       <input type="hidden" name={detail} value={count} />
 
       <CardHeader className="flex flex-col gap-y-5">

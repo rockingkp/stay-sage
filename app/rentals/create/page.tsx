@@ -47,10 +47,10 @@ const CreatePropertyPage = () => {
           <h3 className="text-lg mt-8 mb-4 font-medium">
             Accomodation Details
           </h3>
-          <CounterInput detail="Guests" />
-          <CounterInput detail="Bedrooms" />
-          <CounterInput detail="Beds" />
-          <CounterInput detail="Bathrooms" />
+          <CounterInput detail="guests" />
+          <CounterInput detail="bedrooms" />
+          <CounterInput detail="beds" />
+          <CounterInput detail="baths" />
 
           <h3 className="text-lg mt-10 mb-6 font-medium">Amenities</h3>
           <AmenitiesInput />
