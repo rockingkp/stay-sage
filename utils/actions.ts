@@ -241,6 +241,27 @@ export const toggleFavouriteAction = async (prevState: {
   } catch (error) {
     return renderError(error);
   }
+};
 
-  return { message: "toggle favourite" };
+export const fetchFavourites = async () => {
+  const user = await getAuthUser();
+  const favourites = await db.favourite.findMany({
+    where: {
+      profileId: user.id,
+    },
+    select: {
+      property: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          tagline: true,
+          country: true,
+          price: true,
+        },
+      },
+    },
+  });
+
+  return favourites.map((favourite) => favourite.property);
 };
