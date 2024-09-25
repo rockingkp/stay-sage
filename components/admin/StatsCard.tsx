@@ -2,7 +2,7 @@ import { Card, CardHeader } from "../ui/card";
 
 type StatsCardProps = {
   title: string;
-  value: number | string;
+  value: number;
 };
 
 const StatsCard = ({ title, value }: StatsCardProps) => {
